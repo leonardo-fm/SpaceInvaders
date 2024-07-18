@@ -16,7 +16,8 @@ public:
     void HandleEvents();
     void Update();
     void Render();
-    
+
+    void Stop();
     void Clean();
 private:
     SDL_Window* window;

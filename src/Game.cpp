@@ -31,7 +31,9 @@ void Game::Init(const char* windowTitle, int width, int height) {
         std::cout << "Error: Init() SDL_TTF" << '\n';
     }
     
+    enemy1.AddComponent<TransformComponent>(50, 200);
     enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 100, 100, 8, 8);
+    
     enemy2.AddComponent<SpriteComponent>("assets/monster_1.png", 50, 100, 8, 8);
     enemy3.AddComponent<SpriteComponent>("assets/monster_1.png", 100, 50, 8, 8);
     
@@ -53,6 +55,10 @@ void Game::Render() {
     TextManager::Draw(textTexture, {0, 0, 0, 0});
     
     SDL_RenderPresent(renderer);
+}
+
+void Game::Stop() {
+    running = false;
 }
 
 void Game::Clean() {

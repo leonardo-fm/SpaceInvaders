@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <array>
+#include <bitset>
 #include <memory>
 #include <vector>
 
@@ -14,14 +15,22 @@ public:
 
     template<typename T, typename... TArgs> 
     void AddComponent(TArgs&&... cArgs) {
-        T* component = new T(std::forward<TArgs>(cArgs)...);
+        Component* component = new T(std::forward<TArgs>(cArgs)...);
         components.emplace_back(std::move(std::unique_ptr<Component>{component}));
+        component->entity = this;
         componentArray[GetComponentId<T>()] = component;
+        componentBitset[GetComponentId<T>()] = true;
+        component->Init();
     }
 
     template <typename T>
-    Component* GetComponent() {
-        return componentArray[GetComponentId<T>()];
+    T& GetComponent() {
+        return *static_cast<T*>(componentArray[GetComponentId<T>()]);
+    }
+
+    template <typename T>
+    bool HasComponent() {
+        return componentBitset[GetComponentId<T>()];
     }
     
     void Update();
@@ -29,6 +38,7 @@ public:
     
 private:
     std::array<Component*, maxComponents> componentArray;
+    std::bitset<maxComponents> componentBitset;
     std::vector<std::unique_ptr<Component>> components;
 
     size_t GetNewComponentId() {
