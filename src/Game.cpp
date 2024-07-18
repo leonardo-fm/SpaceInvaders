@@ -1,6 +1,9 @@
 ﻿#include "Game.h"
+#include "TextureManager.h"
 
 #include <iostream>
+
+SDL_Renderer* Game::renderer = nullptr;
 
 void Game::Init(const char* windowTitle, int width, int height) {
 
@@ -20,4 +23,22 @@ void Game::Init(const char* windowTitle, int width, int height) {
     }
 
     running = true;
+}
+
+void Game::HandleEvents() {}
+void Game::Update() {}
+void Game::Render() {
+    SDL_RenderClear(renderer);
+
+    SDL_Texture* texture = TextureManager::LoadTexture("assets/monster_1.png");
+    TextureManager::Draw(texture, {0, 0, 8, 8}, {0, 0, 16, 16});
+    
+    SDL_RenderPresent(renderer);
+}
+
+void Game::Clean() {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
+    std::cout << "Cleaned" << '\n';
 }
