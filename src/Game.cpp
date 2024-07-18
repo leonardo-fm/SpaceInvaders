@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include "TextureManager.h"
+#include "TextManager.h"
 
 #include <iostream>
 
@@ -31,7 +32,10 @@ void Game::Render() {
     SDL_RenderClear(renderer);
 
     SDL_Texture* texture = TextureManager::LoadTexture("assets/monster_1.png");
-    TextureManager::Draw(texture, {0, 0, 8, 8}, {0, 0, 16, 16});
+    TextureManager::Draw(texture, {0, 0, 8, 8}, {50, 50, 16, 16});
+
+    SDL_Texture* textTexture = TextManager::LoadText("60", "assets/cour.ttf", 16, {255, 255, 255, 255});
+    TextManager::Draw(textTexture, {0, 0, 0, 0});
     
     SDL_RenderPresent(renderer);
 }
