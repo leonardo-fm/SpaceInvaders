@@ -4,6 +4,8 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 
+#include "ECS/SystemManager.h"
+
 class Game {
 public:
     static SDL_Renderer* renderer;
