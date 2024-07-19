@@ -7,7 +7,7 @@ class TransformComponent : public Component {
 public:
     TransformComponent(Vector2D pos, Vector2D vel) {
         SetPosition(pos);
-        SetSpeed(vel);
+        SetVelocity(vel);
     }
     
     Vector2D GetPosition() const {
@@ -17,10 +17,10 @@ public:
         position = pos;
     }
     
-    Vector2D GetSpeed() const {
+    Vector2D GetVelocity() const {
         return velocity;
     }
-    void SetSpeed(Vector2D vel) {
+    void SetVelocity(Vector2D vel) {
         velocity = vel;
     }
     

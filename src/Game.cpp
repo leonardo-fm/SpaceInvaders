@@ -7,11 +7,16 @@
 
 #include <iostream>
 
+#include "Components/KeyboardController.h"
+
 
 SystemManager systemManager;
 int Game::gameWidth = 800;
 int Game::gameHeight = 640;
+bool Game::running = false;
+
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
 
 Entity& player = systemManager.CreateEntity();
 
@@ -37,14 +42,15 @@ void Game::Init(const char* windowTitle, int width, int height) {
     enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(1, 1));
     enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
 
-    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(1, 0));
+    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(0, 0));
     player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
+    player.AddComponent<KeyboardController>();
     
     running = true;
 }
 
 void Game::HandleEvents() {
-    
+    SDL_PollEvent(&event);
 }
 void Game::Update() {
     systemManager.Update();

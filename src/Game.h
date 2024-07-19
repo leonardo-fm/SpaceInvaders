@@ -11,17 +11,18 @@ public:
     static int gameWidth;
     static int gameHeight;
     static SDL_Renderer* renderer;
+    static SDL_Event event;
     
     void Init(const char* windowTitle, int width, int height);
-    bool IsRunning() { return running; }
+    static bool IsRunning() { return running; }
 
     void HandleEvents();
     void Update();
     void Render();
 
-    void Stop();
+    static void Stop();
     void Clean();
 private:
     SDL_Window* window;
-    bool running = false;
+    static bool running;
 };

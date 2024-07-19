@@ -19,11 +19,12 @@ public:
     void Init() override {
         if (entity->HasComponent<TransformComponent>() == false) {
             std::cout << "Transform component not found" << '\n';
-            return;
+            Game::Stop();
         }
+        transform = &entity->GetComponent<TransformComponent>();
     }
     void Update() override {
-        Vector2D position = entity->GetComponent<TransformComponent>().GetPosition();
+        Vector2D position = transform->GetPosition();
         destRect = {static_cast<int>(position.x), static_cast<int>(position.y), srcRect.w, srcRect.h};
     }
     void Draw() override {
@@ -31,6 +32,7 @@ public:
     }
 
 private:
+    TransformComponent* transform;
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
 };
