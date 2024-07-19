@@ -1,27 +1,56 @@
 ﻿#include "SystemManager.h"
 
+#include "../Collision.h"
+
 int SystemManager::numberOfEntities = 0;
 
-Entity& SystemManager::CreateEntity() {
+Entity& SystemManager::CreateEntity(GameObjectsGroup group) {
     Entity* entity = new Entity(*this);
-    entities.emplace_back(std::move(std::unique_ptr<Entity>{entity}));
+    entitiesGroups[group].emplace_back(std::move(std::unique_ptr<Entity>{entity}));
     numberOfEntities++;
     return *entity;
 }
 
 void SystemManager::Refresh() {
-    entities.erase(std::remove_if(entities.begin(), entities.end(),
+    for (auto& entitiesGroup : entitiesGroups) {
+        entitiesGroup.second.erase(std::remove_if(entitiesGroup.second.begin(), entitiesGroup.second.end(),
         [](const std::unique_ptr<Entity> &entity) {
             if(entity->IsActive() == false) {
                 numberOfEntities--;
                 return true;
             }
             return false;
-        }), entities.end());
+        }), entitiesGroup.second.end());
+    }
 }
 void SystemManager::Update() {
-    for (auto& entety : entities) entety->Update();
+    for (auto& entitiesGroup : entitiesGroups) {
+        for (auto& entity : entitiesGroup.second) entity->Update();
+    }
+}
+void SystemManager::CollisionResolution() {
+    // player projectiles
+    for (auto& pp : entitiesGroups[playerProjectile]) {
+        for (auto& e : entitiesGroups[enemy]) {
+            if (Collision::AABB(pp->GetComponent<ColliderComponent>().GetCollider(), e->GetComponent<ColliderComponent>().GetCollider())) {
+                pp->Destroy();
+                e->Destroy();
+            }
+        }
+    }
+
+    // enemy projectiles
+    for (auto& ep : entitiesGroups[enemyProjectile]) {
+        for (auto& p : entitiesGroups[player]) {
+            if (Collision::AABB(ep->GetComponent<ColliderComponent>().GetCollider(), p->GetComponent<ColliderComponent>().GetCollider())) {
+                ep->Destroy();
+                p->Destroy();
+            }
+        }
+    }
 }
 void SystemManager::Draw() {
-    for (auto& entety : entities) entety->Draw();
+    for (auto& entitiesGroup : entitiesGroups) {
+        for (auto& entity : entitiesGroup.second) entity->Draw();
+    }
 }

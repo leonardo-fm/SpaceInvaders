@@ -6,6 +6,6 @@
 
 class Collision {
 public:
-    bool AABB(SDL_Rect rectA, SDL_Rect rectB);
-    bool AABB(ColliderComponent colliderA, ColliderComponent colliderB);
+    static bool AABB(SDL_Rect rectA, SDL_Rect rectB);
+    static bool AABB(ColliderComponent colliderA, ColliderComponent colliderB);
 };

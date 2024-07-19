@@ -20,9 +20,9 @@ Debug* debug;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
-Entity& player = systemManager.CreateEntity();
+Entity& player = systemManager.CreateEntity(SystemManager::player);
 
-Entity& enemy1 = systemManager.CreateEntity();
+Entity& enemy = systemManager.CreateEntity(SystemManager::enemy);
 
 void Game::Init(const char* windowTitle, int width, int height) {
 
@@ -43,8 +43,9 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
     debug = new Debug();
     
-    enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(0, 0));
-    enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+    enemy.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(0, 0));
+    enemy.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+    enemy.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
 
     player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(0, 0));
     player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
@@ -55,6 +56,7 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
 void Game::StartFrame() {
     debug->StartFrame();
+    systemManager.Refresh();
 }
 void Game::EndFrame() {
     debug->EndFrame();
@@ -66,15 +68,18 @@ void Game::HandleEvents() {
 bool fire = false;
 void Game::Update() {
     if (fire) {
-        Entity& projectile = systemManager.CreateEntity();
+        Entity& projectile = systemManager.CreateEntity(SystemManager::playerProjectile);
         projectile.AddComponent<TransformComponent>(player.GetComponent<TransformComponent>().GetPosition(), Vector2D(0, -10));
         projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
+        projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 2, 2});
         fire = false;
     }
     
-    systemManager.Refresh();
     systemManager.Update();
     debug->Update();
+}
+void Game::CollisionResolution() {
+    systemManager.CollisionResolution();
 }
 void Game::Render() {
     SDL_RenderClear(renderer);

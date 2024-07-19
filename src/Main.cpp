@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
         game->StartFrame();
         game->HandleEvents();
         game->Update();
+        game->CollisionResolution();
         game->Render();
         game->EndFrame();
         

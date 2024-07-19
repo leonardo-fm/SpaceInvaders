@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -7,13 +8,22 @@
 
 class SystemManager {
 public:
+    enum GameObjectsGroup {
+        background = 0,
+        player = 1,
+        enemy = 2,
+        playerProjectile = 3,
+        enemyProjectile = 4
+    };
+    
     static int numberOfEntities;
-    Entity& CreateEntity();
+    Entity& CreateEntity(GameObjectsGroup group);
 
     void Refresh();
     void Update();
+    void CollisionResolution();
     void Draw();
     
 private:
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::map<GameObjectsGroup, std::vector<std::unique_ptr<Entity>>> entitiesGroups;
 };

@@ -21,6 +21,7 @@ public:
 
     void HandleEvents();
     void Update();
+    void CollisionResolution();
     void Render();
 
     static void Stop();
