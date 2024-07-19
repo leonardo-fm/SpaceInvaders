@@ -8,6 +8,8 @@
 
 class Game {
 public:
+    static int gameWidth;
+    static int gameHeight;
     static SDL_Renderer* renderer;
     
     void Init(const char* windowTitle, int width, int height);

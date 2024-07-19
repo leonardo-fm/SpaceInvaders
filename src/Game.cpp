@@ -3,16 +3,19 @@
 #include "TextManager.h"
 #include "ECS/Entity.h"
 #include "Components/Components.h"
+#include "Vector2D.h"
 
 #include <iostream>
 
 
 SystemManager systemManager;
+int Game::gameWidth = 800;
+int Game::gameHeight = 640;
 SDL_Renderer* Game::renderer = nullptr;
 
+Entity& player = systemManager.CreateEntity();
+
 Entity& enemy1 = systemManager.CreateEntity();
-Entity& enemy2 = systemManager.CreateEntity();
-Entity& enemy3 = systemManager.CreateEntity();
 
 void Game::Init(const char* windowTitle, int width, int height) {
 
@@ -31,11 +34,11 @@ void Game::Init(const char* windowTitle, int width, int height) {
         std::cout << "Error: Init() SDL_TTF" << '\n';
     }
     
-    enemy1.AddComponent<TransformComponent>(50, 200);
-    enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 100, 100, 8, 8);
-    
-    enemy2.AddComponent<SpriteComponent>("assets/monster_1.png", 50, 100, 8, 8);
-    enemy3.AddComponent<SpriteComponent>("assets/monster_1.png", 100, 50, 8, 8);
+    enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(1, 1));
+    enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+
+    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(1, 0));
+    player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
     
     running = true;
 }

@@ -8,10 +8,8 @@
 
 class SpriteComponent : public Component {
 public:
-    SpriteComponent(const char* texturePath, int x, int y, int w, int h) {
+    SpriteComponent(const char* texturePath, int w, int h) {
         texture = TextureManager::LoadTexture(texturePath);
-        xPos = x;
-        yPos = y;
         srcRect = {0, 0, w, h};
     }
     ~SpriteComponent() {
@@ -23,6 +21,8 @@ public:
             std::cout << "Transform component not found" << '\n';
             return;
         }
+    }
+    void Update() override {
         Vector2D position = entity->GetComponent<TransformComponent>().GetPosition();
         destRect = {static_cast<int>(position.x), static_cast<int>(position.y), srcRect.w, srcRect.h};
     }
@@ -31,8 +31,6 @@ public:
     }
 
 private:
-    int xPos;
-    int yPos;
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
 };

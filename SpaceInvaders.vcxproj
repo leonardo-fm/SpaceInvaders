@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Components\Components.h" />
+    <ClInclude Include="src\Components\KeyboardController.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Entity.h" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <Content Include="assets\cour.ttf" />
     <Content Include="assets\monster_1.png" />
+    <Content Include="assets\player.png" />
     <Content Include="src\Components\SpriteComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
