@@ -43,6 +43,7 @@
     <Content Include="assets\cour.ttf" />
     <Content Include="assets\monster_1.png" />
     <Content Include="assets\player.png" />
+    <Content Include="assets\projectile.png" />
     <Content Include="src\Components\SpriteComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

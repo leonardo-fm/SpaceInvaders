@@ -22,6 +22,8 @@ public:
 
     static void Stop();
     void Clean();
+
+    static void FireProjectile();
 private:
     SDL_Window* window;
     static bool running;

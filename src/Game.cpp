@@ -52,7 +52,15 @@ void Game::Init(const char* windowTitle, int width, int height) {
 void Game::HandleEvents() {
     SDL_PollEvent(&event);
 }
+bool fire = false;
 void Game::Update() {
+    if (fire) {
+        Entity& projectile = systemManager.CreateEntity();
+        projectile.AddComponent<TransformComponent>(player.GetComponent<TransformComponent>().GetPosition(), Vector2D(0, -10));
+        projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
+        fire = false;
+    }
+    
     systemManager.Update();
 }
 void Game::Render() {
@@ -75,4 +83,7 @@ void Game::Clean() {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     std::cout << "Cleaned" << '\n';
+}
+void Game::FireProjectile() {
+    fire = true;
 }

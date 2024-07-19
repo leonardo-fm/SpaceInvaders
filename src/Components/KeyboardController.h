@@ -22,6 +22,9 @@ public:
             case SDLK_RIGHT:
                 transform->SetVelocity(Vector2D(1, 0));
                 break;
+            case SDLK_SPACE:
+                Game::FireProjectile();
+                break;
             default:
                 break;
             }
