@@ -7,6 +7,7 @@
 
 #include <iostream>
 
+#include "Debug.h"
 #include "Components/KeyboardController.h"
 
 
@@ -14,6 +15,7 @@ SystemManager systemManager;
 int Game::gameWidth = 800;
 int Game::gameHeight = 640;
 bool Game::running = false;
+Debug* debug;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -38,6 +40,8 @@ void Game::Init(const char* windowTitle, int width, int height) {
     if (TTF_Init() == -1) {
         std::cout << "Error: Init() SDL_TTF" << '\n';
     }
+
+    debug = new Debug();
     
     enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(1, 1));
     enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
@@ -47,6 +51,13 @@ void Game::Init(const char* windowTitle, int width, int height) {
     player.AddComponent<KeyboardController>();
     
     running = true;
+}
+
+void Game::StartFrame() {
+    debug->StartFrame();
+}
+void Game::EndFrame() {
+    debug->EndFrame();
 }
 
 void Game::HandleEvents() {
@@ -60,16 +71,16 @@ void Game::Update() {
         projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
         fire = false;
     }
-    
+
+    systemManager.Refresh();
     systemManager.Update();
+    debug->Update();
 }
 void Game::Render() {
     SDL_RenderClear(renderer);
     
     systemManager.Draw();
-    
-    SDL_Texture* textTexture = TextManager::LoadText("60", "assets/cour.ttf", 16, {255, 255, 255, 255});
-    TextManager::Draw(textTexture, {0, 0, 0, 0});
+    debug->Draw();
     
     SDL_RenderPresent(renderer);
 }

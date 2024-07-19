@@ -16,6 +16,9 @@ public:
     void Init(const char* windowTitle, int width, int height);
     static bool IsRunning() { return running; }
 
+    void StartFrame();
+    void EndFrame();
+
     void HandleEvents();
     void Update();
     void Render();

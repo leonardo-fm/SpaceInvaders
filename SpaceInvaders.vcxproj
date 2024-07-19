@@ -22,6 +22,7 @@
     <ClInclude Include="src\Components\Components.h" />
     <ClInclude Include="src\Components\KeyboardController.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />
+    <ClInclude Include="src\Debug.h" />
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Entity.h" />
     <ClInclude Include="src\ECS\SystemManager.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Debug.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\Game.cpp" />

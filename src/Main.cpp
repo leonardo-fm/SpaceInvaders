@@ -3,7 +3,6 @@
 Game* game = nullptr;
 
 int main(int argc, char* argv[]) {
-
     const int FPS = 60;
     const int FRAME_DELAY = 1000 / FPS;
     Uint32 frameStart;
@@ -15,10 +14,12 @@ int main(int argc, char* argv[]) {
     while (game->IsRunning()) {
         frameStart = SDL_GetTicks();
         
+        game->StartFrame();
         game->HandleEvents();
         game->Update();
         game->Render();
-
+        game->EndFrame();
+        
         frameTime = SDL_GetTicks() - frameStart;
         if (frameTime < FRAME_DELAY) {
             SDL_Delay(FRAME_DELAY - frameTime);

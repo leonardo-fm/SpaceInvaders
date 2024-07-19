@@ -7,9 +7,10 @@
 
 class SystemManager {
 public:
+    static int numberOfEntities;
     Entity& CreateEntity();
-    void RemoveEntity(Entity* entity);
 
+    void Refresh();
     void Update();
     void Draw();
     

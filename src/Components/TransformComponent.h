@@ -27,6 +27,11 @@ public:
     void Update() override {
         position.x += velocity.x * speed;
         position.y += velocity.y * speed;
+
+        if (position.x > static_cast<float>(Game::gameWidth) || position.x < 0 ||
+            position.y > static_cast<float>(Game::gameHeight) || position.y < 0) {
+            entity->Destroy();
+        }
     }
     
 private:

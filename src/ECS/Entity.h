@@ -9,9 +9,12 @@
 
 constexpr size_t maxComponents = 32;
 
+class SystemManager;
+
 class Entity {
 public:
-    Entity();
+    Entity(SystemManager& manager);
+    bool IsActive();
 
     template<typename T, typename... TArgs> 
     void AddComponent(TArgs&&... cArgs) {
@@ -35,8 +38,12 @@ public:
     
     void Update();
     void Draw();
+    void Destroy();
     
 private:
+    SystemManager& systemManager;
+    bool active = true;
+    
     std::array<Component*, maxComponents> componentArray;
     std::bitset<maxComponents> componentBitset;
     std::vector<std::unique_ptr<Component>> components;
