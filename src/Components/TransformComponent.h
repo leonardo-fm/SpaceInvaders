@@ -2,6 +2,7 @@
 
 #include "../Vector2D.h"
 #include "../ECS/Component.h"
+#include "Game.h"
 
 class TransformComponent : public Component {
 public:

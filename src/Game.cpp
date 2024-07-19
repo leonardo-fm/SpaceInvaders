@@ -43,7 +43,7 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
     debug = new Debug();
     
-    enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(1, 1));
+    enemy1.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(0, 0));
     enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
 
     player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(0, 0));
@@ -71,7 +71,7 @@ void Game::Update() {
         projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
         fire = false;
     }
-
+    
     systemManager.Refresh();
     systemManager.Update();
     debug->Update();
