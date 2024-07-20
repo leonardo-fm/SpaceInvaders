@@ -39,6 +39,13 @@ public:
     void SetVelocity(Vector2D vel) {
         velocity = vel;
     }
+
+    float GetSpeed() const {
+        return speed;
+    }
+    void SetSpeed(float spd) {
+        speed = spd;
+    }
     
     void Update() override {
         position.x += velocity.x * speed;

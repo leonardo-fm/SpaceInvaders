@@ -2,10 +2,11 @@
 #include "ECS/SystemManager.h"
 #include "Components/Components.h"
 
-int rowSpace = 32;
+int rowSpace = 32;;
 
 void EnemyManager::Spawn(int enemyColumns, int enemyRows) {
     int columnSpace = Game::gameWidth / enemyColumns;
+    totNumberOfEnemy = enemyColumns * enemyRows;
     
     for (int row = 0; row < enemyRows; row++) {
         for (int col = 0; col < enemyColumns; col++) {
@@ -46,7 +47,8 @@ void EnemyManager::Update() {
     
     // Move row
     movingDirection *= -1; // Invert direction
-    for (auto& enemy : Game::systemManager->GetEntityGroup(SystemManager::enemy)) {
+    auto& enemies = Game::systemManager->GetEntityGroup(SystemManager::enemy);
+    for (auto& enemy : enemies) {
         if (enemy->IsActive()) {
             TransformComponent* enemyPosition = &enemy->GetComponent<TransformComponent>();
             enemyPosition->SetY(enemyPosition->GetPosition().y + static_cast<float>(rowSpace));

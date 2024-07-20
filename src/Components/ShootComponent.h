@@ -6,7 +6,7 @@ class ShootComponent : public Component {
 public:
     void Init() override {
         lastShoot = SDL_GetTicks();
-        msToWait = rand() % 5000;
+        msToWait = rand() % 8000;
     }
     void Create() override {
         if (lastShoot + msToWait < SDL_GetTicks()) {
@@ -16,7 +16,7 @@ public:
             projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 2, 2});
 
             lastShoot = SDL_GetTicks();
-            msToWait = rand() % 5000;
+            msToWait = rand() % 8000;
         }
     }
 private:

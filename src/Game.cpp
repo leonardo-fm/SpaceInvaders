@@ -46,7 +46,7 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
     enemyManager->Spawn(10, 5);
     
-    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 16)), Vector2D(2, 2), Vector2D(0, 0), 3);
+    player.AddComponent<TransformComponent>(Vector2D(static_cast<float>(gameWidth) / 2, static_cast<float>(gameHeight - 16)), Vector2D(2, 2), Vector2D(0, 0), 3);
     player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
     player.AddComponent<KeyboardController>();
     player.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
