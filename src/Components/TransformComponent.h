@@ -6,7 +6,7 @@
 
 class TransformComponent : public Component {
 public:
-    TransformComponent(Vector2D pos, Vector2D scl, Vector2D vel, int spd) {
+    TransformComponent(Vector2D pos, Vector2D scl, Vector2D vel, float spd) {
         SetPosition(pos);
         SetScale(scl);
         SetVelocity(vel);
@@ -41,8 +41,8 @@ public:
     }
     
     void Update() override {
-        position.x += velocity.x * static_cast<float>(speed);
-        position.y += velocity.y * static_cast<float>(speed);
+        position.x += velocity.x * speed;
+        position.y += velocity.y * speed;
 
         if (position.x > static_cast<float>(Game::gameWidth) || position.x < 0 ||
             position.y > static_cast<float>(Game::gameHeight) || position.y < 0) {
@@ -54,5 +54,5 @@ private:
     Vector2D position;
     Vector2D scale;
     Vector2D velocity;
-    int speed;
+    float speed;
 };

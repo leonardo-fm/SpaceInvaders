@@ -2,7 +2,7 @@
 #include "ECS/SystemManager.h"
 #include "Components/Components.h"
 
-int rowSpace = 24;
+int rowSpace = 32;
 
 void EnemyManager::Spawn(int enemyColumns, int enemyRows) {
     int columnSpace = Game::gameWidth / enemyColumns;
@@ -11,9 +11,10 @@ void EnemyManager::Spawn(int enemyColumns, int enemyRows) {
         for (int col = 0; col < enemyColumns; col++) {
             Entity& enemy = Game::systemManager->CreateEntity(SystemManager::enemy);
             Vector2D position = Vector2D(static_cast<float>(col * columnSpace), static_cast<float>(row * rowSpace));
-            enemy.AddComponent<TransformComponent>(position, Vector2D(2, 2), Vector2D(movingDirection, 0), 1);
+            enemy.AddComponent<TransformComponent>(position, Vector2D(4, 4), Vector2D(movingDirection, 0), 0.5);
             enemy.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
             enemy.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+            enemy.AddComponent<ShootComponent>();
         }    
     }
 }

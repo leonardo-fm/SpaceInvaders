@@ -8,6 +8,9 @@ bool Entity::IsActive() {
     return active;
 }
 
+void Entity::Create() {
+    for (auto& component : components) component->Create();
+}
 void Entity::Update() {
     for (auto& component : components) component->Update();
 }

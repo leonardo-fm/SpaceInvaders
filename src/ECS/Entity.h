@@ -36,7 +36,8 @@ public:
     bool HasComponent() {
         return componentBitset[GetComponentId<T>()];
     }
-    
+
+    void Create();
     void Update();
     void Draw();
     void Destroy();

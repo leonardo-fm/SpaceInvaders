@@ -21,6 +21,7 @@ public:
     std::vector<std::unique_ptr<Entity>>& GetEntityGroup(GameObjectsGroup group);
     
     void Refresh();
+    void Create();
     void Update();
     void CollisionResolution();
     void Draw();

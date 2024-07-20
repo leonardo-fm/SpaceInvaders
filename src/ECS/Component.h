@@ -9,6 +9,7 @@ public:
     virtual ~Component() {}
     
     virtual void Init() {}
+    virtual void Create() {}
     virtual void Update() {}
     virtual void Draw() {}
 };

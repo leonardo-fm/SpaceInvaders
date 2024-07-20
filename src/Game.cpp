@@ -44,11 +44,12 @@ void Game::Init(const char* windowTitle, int width, int height) {
     debug = new Debug();
     enemyManager = new EnemyManager();
 
-    enemyManager->Spawn(10, 10);
+    enemyManager->Spawn(10, 5);
     
     player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 16)), Vector2D(2, 2), Vector2D(0, 0), 3);
     player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
     player.AddComponent<KeyboardController>();
+    player.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
     
     running = true;
 }
@@ -75,6 +76,7 @@ void Game::Update() {
     }
 
     enemyManager->Update();
+    systemManager->Create();
     systemManager->Update();
     debug->Update();
 }

@@ -26,6 +26,11 @@ void SystemManager::Refresh() {
         }), entitiesGroup.second.end());
     }
 }
+void SystemManager::Create() {
+    for (auto& entitiesGroup : entitiesGroups) {
+        for (auto& entity : entitiesGroup.second) entity->Create();
+    }
+}
 void SystemManager::Update() {
     for (auto& entitiesGroup : entitiesGroups) {
         for (auto& entity : entitiesGroup.second) entity->Update();
