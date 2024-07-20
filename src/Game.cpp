@@ -23,6 +23,9 @@ SDL_Event Game::event;
 Entity& player = systemManager.CreateEntity(SystemManager::player);
 
 Entity& enemy = systemManager.CreateEntity(SystemManager::enemy);
+Entity& enemy1 = systemManager.CreateEntity(SystemManager::enemy);
+Entity& enemy2 = systemManager.CreateEntity(SystemManager::enemy);
+Entity& enemy3 = systemManager.CreateEntity(SystemManager::enemy);
 
 void Game::Init(const char* windowTitle, int width, int height) {
 
@@ -43,11 +46,23 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
     debug = new Debug();
     
-    enemy.AddComponent<TransformComponent>(Vector2D(50, 200), Vector2D(0, 0));
+    enemy.AddComponent<TransformComponent>(Vector2D(60, 200), Vector2D(2, 2), Vector2D(0, 1), 1);
     enemy.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
     enemy.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
 
-    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 8)), Vector2D(0, 0));
+    enemy1.AddComponent<TransformComponent>(Vector2D(75, 100), Vector2D(2, 2), Vector2D(0, 1), 2);
+    enemy1.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+    enemy1.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+
+    enemy2.AddComponent<TransformComponent>(Vector2D(110, 160), Vector2D(2, 2), Vector2D(0, 1), 1);
+    enemy2.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+    enemy2.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+
+    enemy3.AddComponent<TransformComponent>(Vector2D(125, 125), Vector2D(2, 2), Vector2D(0, 1), 2);
+    enemy3.AddComponent<SpriteComponent>("assets/monster_1.png", 8, 8);
+    enemy3.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+
+    player.AddComponent<TransformComponent>(Vector2D(0, static_cast<float>(gameHeight - 16)), Vector2D(2, 2), Vector2D(0, 0), 3);
     player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
     player.AddComponent<KeyboardController>();
     
@@ -69,7 +84,7 @@ bool fire = false;
 void Game::Update() {
     if (fire) {
         Entity& projectile = systemManager.CreateEntity(SystemManager::playerProjectile);
-        projectile.AddComponent<TransformComponent>(player.GetComponent<TransformComponent>().GetPosition(), Vector2D(0, -10));
+        projectile.AddComponent<TransformComponent>(player.GetComponent<TransformComponent>().GetPosition(), Vector2D(1, 1), Vector2D(0, -1), 10);
         projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
         projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 2, 2});
         fire = false;

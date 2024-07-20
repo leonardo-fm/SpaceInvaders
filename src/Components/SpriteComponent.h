@@ -25,7 +25,9 @@ public:
     }
     void Update() override {
         Vector2D position = transform->GetPosition();
-        destRect = {static_cast<int>(position.x), static_cast<int>(position.y), srcRect.w, srcRect.h};
+        Vector2D scale = transform->GetScale();
+        destRect = {static_cast<int>(position.x), static_cast<int>(position.y),
+            srcRect.w * static_cast<int>(scale.x), srcRect.h * static_cast<int>(scale.y)};
     }
     void Draw() override {
         TextureManager::Draw(texture, srcRect, destRect);

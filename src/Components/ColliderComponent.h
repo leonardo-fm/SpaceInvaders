@@ -14,6 +14,8 @@ public:
             Game::Stop();
         }
         transform = &entity->GetComponent<TransformComponent>();
+        collider.w *= static_cast<int>(transform->GetScale().x);
+        collider.h *= static_cast<int>(transform->GetScale().y);
     }
     void Update() override {
         Vector2D position = transform->GetPosition();
