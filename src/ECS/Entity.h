@@ -17,13 +17,14 @@ public:
     bool IsActive();
 
     template<typename T, typename... TArgs> 
-    void AddComponent(TArgs&&... cArgs) {
-        Component* component = new T(std::forward<TArgs>(cArgs)...);
+    T* AddComponent(TArgs&&... cArgs) {
+        T* component = new T(std::forward<TArgs>(cArgs)...);
         components.emplace_back(std::move(std::unique_ptr<Component>{component}));
         component->entity = this;
         componentArray[GetComponentId<T>()] = component;
         componentBitset[GetComponentId<T>()] = true;
         component->Init();
+        return component;
     }
 
     template <typename T>

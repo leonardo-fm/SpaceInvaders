@@ -11,6 +11,7 @@ public:
     static int gameWidth;
     static int gameHeight;
     static SDL_Renderer* renderer;
+    static SystemManager* systemManager;
     static SDL_Event event;
     
     void Init(const char* windowTitle, int width, int height);

@@ -28,6 +28,7 @@
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Entity.h" />
     <ClInclude Include="src\ECS\SystemManager.h" />
+    <ClInclude Include="src\EnemyManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\TextManager.h" />
     <ClInclude Include="src\TextureManager.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="src\Debug.cpp" />
     <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\EnemyManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\TextManager.cpp" />

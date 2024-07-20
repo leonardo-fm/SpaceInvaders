@@ -18,7 +18,8 @@ public:
     
     static int numberOfEntities;
     Entity& CreateEntity(GameObjectsGroup group);
-
+    std::vector<std::unique_ptr<Entity>>& GetEntityGroup(GameObjectsGroup group);
+    
     void Refresh();
     void Update();
     void CollisionResolution();

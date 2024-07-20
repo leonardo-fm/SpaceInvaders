@@ -10,6 +10,9 @@ Entity& SystemManager::CreateEntity(GameObjectsGroup group) {
     numberOfEntities++;
     return *entity;
 }
+std::vector<std::unique_ptr<Entity>>& SystemManager::GetEntityGroup(GameObjectsGroup group) {
+    return entitiesGroups[group];
+}
 
 void SystemManager::Refresh() {
     for (auto& entitiesGroup : entitiesGroups) {

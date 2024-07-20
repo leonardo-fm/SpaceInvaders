@@ -19,6 +19,12 @@ public:
     void SetPosition(Vector2D pos) {
         position = pos;
     }
+    void SetX(float x) {
+        position.x = x;
+    }
+    void SetY(float y) {
+        position.y = y;
+    }
     
     Vector2D GetScale() const {
         return scale;
