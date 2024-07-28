@@ -1,12 +1,9 @@
 ﻿#pragma once
-
-#include <vector>
-
-#include "Components/TransformComponent.h"
+#include "EntityManager.h"
 
 class EnemyManager {
 public:
-    void Spawn(int enemyColumns, int enemyRows);
+    void SpawnEnemy(int enemyColumns, int enemyRows);
     void Update();
 
 private:

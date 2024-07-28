@@ -1,28 +1,24 @@
-﻿#include "Game.h"
-#include "TextureManager.h"
+﻿#include <iostream>
+
+#include "Game.h"
 #include "TextManager.h"
 #include "ECS/Entity.h"
 #include "Components/Components.h"
-#include "Vector2D.h"
-
-#include <iostream>
-
 #include "Debug.h"
 #include "EnemyManager.h"
-#include "Components/KeyboardController.h"
-
+#include "PlayerManager.h"
 
 int Game::gameWidth = 800;
 int Game::gameHeight = 640;
 bool Game::running = false;
 Debug* debug;
+
+PlayerManager* playerManager;
 EnemyManager* enemyManager;
 
 SDL_Renderer* Game::renderer = nullptr;
 SystemManager* Game::systemManager = new SystemManager();
 SDL_Event Game::event;
-
-Entity& player = Game::systemManager->CreateEntity(SystemManager::player);
 
 void Game::Init(const char* windowTitle, int width, int height) {
 
@@ -42,14 +38,12 @@ void Game::Init(const char* windowTitle, int width, int height) {
     }
 
     debug = new Debug();
-    enemyManager = new EnemyManager();
-
-    enemyManager->Spawn(10, 5);
     
-    player.AddComponent<TransformComponent>(Vector2D(static_cast<float>(gameWidth) / 2, static_cast<float>(gameHeight - 16)), Vector2D(2, 2), Vector2D(0, 0), 3);
-    player.AddComponent<SpriteComponent>("assets/player.png", 8, 8);
-    player.AddComponent<KeyboardController>();
-    player.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+    enemyManager = new EnemyManager();
+    playerManager = new PlayerManager();
+
+    enemyManager->SpawnEnemy(10, 5);
+    playerManager->Spawn(gameWidth / 2, gameHeight - 16);
     
     running = true;
 }
@@ -58,23 +52,11 @@ void Game::StartFrame() {
     debug->StartFrame();
     systemManager->Refresh();
 }
-void Game::EndFrame() {
-    debug->EndFrame();
-}
-
 void Game::HandleEvents() {
     SDL_PollEvent(&event);
 }
 bool fire = false;
 void Game::Update() {
-    if (fire) {
-        Entity& projectile = systemManager->CreateEntity(SystemManager::playerProjectile);
-        projectile.AddComponent<TransformComponent>(player.GetComponent<TransformComponent>().GetPosition(), Vector2D(1, 1), Vector2D(0, -1), 10);
-        projectile.AddComponent<SpriteComponent>("assets/projectile.png", 2, 2);
-        projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 2, 2});
-        fire = false;
-    }
-
     enemyManager->Update();
     systemManager->Create();
     systemManager->Update();
@@ -91,6 +73,9 @@ void Game::Render() {
     
     SDL_RenderPresent(renderer);
 }
+void Game::EndFrame() {
+    debug->EndFrame();
+}
 
 void Game::Stop() {
     running = false;
@@ -101,7 +86,4 @@ void Game::Clean() {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     std::cout << "Cleaned" << '\n';
-}
-void Game::FireProjectile() {
-    fire = true;
 }

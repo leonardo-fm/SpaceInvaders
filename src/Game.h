@@ -18,17 +18,15 @@ public:
     static bool IsRunning() { return running; }
 
     void StartFrame();
-    void EndFrame();
-
     void HandleEvents();
     void Update();
     void CollisionResolution();
     void Render();
+    void EndFrame();
 
     static void Stop();
     void Clean();
-
-    static void FireProjectile();
+    
 private:
     SDL_Window* window;
     static bool running;

@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include "../ECS/Component.h"
-#include "../Components/TransformComponent.h"
+#include "TransformComponent.h"
 #include "../Game.h"
+#include "../PlayerManager.h"
 
 class KeyboardController : public Component {
 public:
@@ -23,7 +24,7 @@ public:
                 transform->SetVelocity(Vector2D(1, 0));
                 break;
             case SDLK_SPACE:
-                Game::FireProjectile();
+                EntityManager::SpawnPlayerProjectile(1, 1);
                 break;
             default:
                 break;
