@@ -10,7 +10,7 @@ void EnemyManager::SpawnEnemy(int enemyColumns, int enemyRows) {
     
     for (int row = 0; row < enemyRows; row++) {
         for (int col = 0; col < enemyColumns; col++) {
-            EntityManager::SpawnEnemy(col * columnSpace, row * rowSpace, movingDirection);
+            EntityManager::SpawnEnemy(Vector2D(col * columnSpace, row * rowSpace), movingDirection);
         }    
     }
 }

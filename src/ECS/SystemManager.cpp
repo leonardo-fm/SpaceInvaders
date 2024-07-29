@@ -1,6 +1,7 @@
 ﻿#include "SystemManager.h"
 
 #include "../Collision.h"
+#include "../PlayerManager.h"
 
 int SystemManager::numberOfEntities = 0;
 
@@ -53,6 +54,7 @@ void SystemManager::CollisionResolution() {
             if (Collision::AABB(ep->GetComponent<ColliderComponent>().GetCollider(), p->GetComponent<ColliderComponent>().GetCollider())) {
                 ep->Destroy();
                 p->Destroy();
+                PlayerManager::PlayerHit();
             }
         }
     }

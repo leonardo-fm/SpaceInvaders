@@ -5,12 +5,14 @@
 class PlayerManager
 {
 public:
-    void Spawn(int xPos, int yPos);
-    void FireProjectile();
-    void PlayerHit();
+    static Entity* player;
+    
+    void Spawn(Vector2D position);
+    Entity* GetPlayer();
+    static void FireProjectile();
+    static void PlayerHit();
     void Update();
 
 private:
-    Entity* player; 
     int life = 1;
 };

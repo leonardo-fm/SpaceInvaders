@@ -43,7 +43,7 @@ void Game::Init(const char* windowTitle, int width, int height) {
     playerManager = new PlayerManager();
 
     enemyManager->SpawnEnemy(10, 5);
-    playerManager->Spawn(gameWidth / 2, gameHeight - 16);
+    playerManager->Spawn(Vector2D(gameWidth / 2, gameHeight - 16));
     
     running = true;
 }

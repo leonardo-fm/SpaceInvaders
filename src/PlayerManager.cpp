@@ -1,16 +1,25 @@
 ﻿#include "PlayerManager.h"
 #include "EntityManager.h"
 #include "Vector2D.h"
-#include "Components/TransformComponent.h"
+#include "Components/Components.h"
 
-void PlayerManager::Spawn(int xPos, int yPos)
+Entity* PlayerManager::player = &EntityManager::CreatePlayer();
+
+void PlayerManager::Spawn(Vector2D position)
 {
-    player = &EntityManager::SpawnPlayer(xPos, yPos);
+    player->AddComponent<TransformComponent>(Vector2D(position), Vector2D(2, 2), Vector2D(0, 0), 3);
+    player->AddComponent<SpriteComponent>("assets/player.png", 8, 8);
+    player->AddComponent<KeyboardController>();
+    player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+}
+Entity* PlayerManager::GetPlayer()
+{
+    return player;
 }
 void PlayerManager::FireProjectile()
 {
     Vector2D playerPosition = player->GetComponent<TransformComponent>().GetPosition();
-    EntityManager::SpawnPlayerProjectile(static_cast<int>(playerPosition.x), static_cast<int>(playerPosition.y));
+    EntityManager::SpawnPlayerProjectile(playerPosition);
 }
 
 void PlayerManager::PlayerHit()

@@ -24,7 +24,7 @@ public:
                 transform->SetVelocity(Vector2D(1, 0));
                 break;
             case SDLK_SPACE:
-                EntityManager::SpawnPlayerProjectile(1, 1);
+                PlayerManager::FireProjectile();
                 break;
             default:
                 break;
