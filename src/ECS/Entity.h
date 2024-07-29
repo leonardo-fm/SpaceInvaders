@@ -2,6 +2,7 @@
 
 #include <array>
 #include <bitset>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -35,6 +36,20 @@ public:
     template <typename T>
     bool HasComponent() {
         return componentBitset[GetComponentId<T>()];
+    }
+
+    template<typename T> 
+    void RemoveComponent() {
+        T* component = &this->GetComponent<T>();
+        if (component == nullptr) {
+            std::cout << "Component " << typeid(T).name() << " not found" << '\n';
+            return;
+        }
+    
+        components.erase(std::find(components.begin(), components.end(), std::unique_ptr<Component>{component}));
+        componentArray[GetComponentId<T>()] = NULL;
+        componentBitset[GetComponentId<T>()] = false;
+        component->Remove();
     }
 
     void Create();

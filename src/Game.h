@@ -24,6 +24,7 @@ public:
     void Render();
     void EndFrame();
 
+    static void EndGame();
     static void Stop();
     void Clean();
     

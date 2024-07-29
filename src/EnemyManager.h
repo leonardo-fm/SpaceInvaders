@@ -4,6 +4,7 @@
 class EnemyManager {
 public:
     void SpawnEnemy(int enemyColumns, int enemyRows);
+    void StopEnemy();
     void Update();
 
 private:

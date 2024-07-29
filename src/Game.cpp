@@ -77,6 +77,9 @@ void Game::EndFrame() {
     debug->EndFrame();
 }
 
+void Game::EndGame() {
+    enemyManager->StopEnemy();
+}
 void Game::Stop() {
     running = false;
 }

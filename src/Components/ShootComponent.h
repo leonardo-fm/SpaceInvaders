@@ -9,6 +9,7 @@ public:
         msToWait = rand() % 8000;
     }
     void Create() override {
+        if (stop) return;
         if (lastShoot + msToWait < SDL_GetTicks()) {
             Vector2D position = entity->GetComponent<TransformComponent>().GetPosition();
             EntityManager::SpawnEnemyProjectile(position);
@@ -17,7 +18,11 @@ public:
             msToWait = rand() % 8000;
         }
     }
+    void Stop() {
+        stop = true;
+    }
 private:
     Uint32 lastShoot;
     int msToWait;
+    bool stop = false;
 };

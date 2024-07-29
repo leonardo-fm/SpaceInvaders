@@ -12,4 +12,5 @@ public:
     virtual void Create() {}
     virtual void Update() {}
     virtual void Draw() {}
+    virtual void Remove() {}
 };

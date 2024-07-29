@@ -4,6 +4,7 @@
 #include "Components/Components.h"
 
 Entity* PlayerManager::player = &EntityManager::CreatePlayer();
+int PlayerManager::life = 1;
 
 void PlayerManager::Spawn(Vector2D position)
 {
@@ -12,21 +13,23 @@ void PlayerManager::Spawn(Vector2D position)
     player->AddComponent<KeyboardController>();
     player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
 }
-Entity* PlayerManager::GetPlayer()
-{
-    return player;
-}
-void PlayerManager::FireProjectile()
-{
+void PlayerManager::FireProjectile() {
     Vector2D playerPosition = player->GetComponent<TransformComponent>().GetPosition();
     EntityManager::SpawnPlayerProjectile(playerPosition);
 }
 
-void PlayerManager::PlayerHit()
-{
-    
+void PlayerManager::PlayerHit() {
+    if (--life > 0)
+    {
+        player = &EntityManager::CreatePlayer();
+        player->AddComponent<TransformComponent>(Vector2D(Game::gameWidth / 2, Game::gameHeight - 16), Vector2D(2, 2), Vector2D(0, 0), 3);
+        player->AddComponent<SpriteComponent>("assets/player.png", 8, 8);
+        player->AddComponent<KeyboardController>();
+        player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+    } else {
+        Game::EndGame(); 
+    }
 }
-void PlayerManager::Update()
-{
+void PlayerManager::Update() {
     
 }

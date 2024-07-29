@@ -14,5 +14,5 @@ public:
     void Update();
 
 private:
-    int life = 1;
+    static int life;
 };
