@@ -16,6 +16,9 @@ public:
     Vector2D GetPosition() const {
         return position;
     }
+    Vector2D GetLastPosition() const {
+        return lastPosition;
+    }
     void SetPosition(Vector2D pos) {
         position = pos;
     }
@@ -48,6 +51,7 @@ public:
     }
     
     void Update() override {
+        lastPosition = position;
         position.x += velocity.x * speed;
         position.y += velocity.y * speed;
 
@@ -59,6 +63,7 @@ public:
     
 private:
     Vector2D position;
+    Vector2D lastPosition;
     Vector2D scale;
     Vector2D velocity;
     float speed;

@@ -11,6 +11,12 @@ void PlayerManager::Spawn(Vector2D position) {
     player->AddComponent<SpriteComponent>("assets/player.png", 8, 8);
     player->AddComponent<KeyboardController>();
     player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+    player->AddComponent<ScriptComponent>([]() {
+        TransformComponent* transform = &player->GetComponent<TransformComponent>(); 
+        Vector2D position = transform->GetPosition();
+        if (position.x > Game::gameWidth - 2 || position.x < 2)
+            transform->SetPosition(transform->GetLastPosition());
+    });
 }
 void PlayerManager::FireProjectile() {
     Vector2D playerPosition = player->GetComponent<TransformComponent>().GetPosition();
