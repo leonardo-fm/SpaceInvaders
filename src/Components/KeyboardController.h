@@ -14,6 +14,7 @@ public:
         }
         transform = &entity->GetComponent<TransformComponent>();
     }
+    
     void Update() override {
         if (Game::event.type == SDL_KEYDOWN) {
             switch (Game::event.key.keysym.sym) {
@@ -24,26 +25,33 @@ public:
                 transform->SetVelocity(Vector2D(1, 0));
                 break;
             case SDLK_SPACE:
+                if (hasShoot) return;
                 PlayerManager::FireProjectile();
+                hasShoot = true;
+                shootTime = SDL_GetTicks();
                 break;
             default:
                 break;
             }
         }
+        
         if (Game::event.type == SDL_KEYUP) {
             switch (Game::event.key.keysym.sym) {
             case SDLK_LEFT:
             case SDLK_RIGHT:
                 transform->SetVelocity(Vector2D(0, 0));
                 break;
-            case SDLK_ESCAPE:
-                Game::Stop();
-                break;
             default:
                 break;
             }
         }
+
+        if (SDL_GetTicks() - shootTime > shootDelay)
+            hasShoot = false;
     }
 private:
     TransformComponent* transform;
+    bool hasShoot = false;
+    Uint32 shootTime;
+    int shootDelay = 500;
 };

@@ -10,6 +10,7 @@ public:
 
     void Update();
     void Draw();
+    
 private:
     SDL_Color textColor;
     

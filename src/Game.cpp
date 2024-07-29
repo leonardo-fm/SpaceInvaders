@@ -50,15 +50,36 @@ void Game::Init(const char* windowTitle, int width, int height) {
 
 void Game::StartFrame() {
     debug->StartFrame();
-    systemManager->Refresh();
 }
 void Game::HandleEvents() {
     SDL_PollEvent(&event);
+
+    if (event.type == SDL_KEYUP) {
+        switch (event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            Stop();
+            break;
+        default:
+            break;
+        }
+    } else if (event.type == SDL_WINDOWEVENT) {
+        switch (event.window.event) {
+        case SDL_WINDOWEVENT_CLOSE:
+            std::cout << "Hi!";
+            Stop();
+            break;
+        default:
+            break;
+        }
+    }
 }
-bool fire = false;
+
 void Game::Update() {
+    systemManager->Refresh();
+    // entity refresh()
+    systemManager->Create(); // NO
+    // entity manager create()
     enemyManager->Update();
-    systemManager->Create();
     systemManager->Update();
     debug->Update();
 }

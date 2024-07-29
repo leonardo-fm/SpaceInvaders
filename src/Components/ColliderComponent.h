@@ -17,6 +17,7 @@ public:
         collider.w *= static_cast<int>(transform->GetScale().x);
         collider.h *= static_cast<int>(transform->GetScale().y);
     }
+    
     void Update() override {
         Vector2D position = transform->GetPosition();
         collider.x = static_cast<int>(position.x);
