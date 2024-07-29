@@ -7,5 +7,5 @@
 class Collision {
 public:
     static bool AABB(SDL_Rect rectA, SDL_Rect rectB);
-    static bool AABB(ColliderComponent colliderA, ColliderComponent colliderB);
+    static bool AABB(const ColliderComponent* colliderA, const ColliderComponent* colliderB);
 };

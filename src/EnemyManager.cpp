@@ -14,6 +14,7 @@ void EnemyManager::SpawnEnemy(int enemyColumns, int enemyRows) {
         }    
     }
 }
+
 void EnemyManager::StopEnemy() {
     for (auto& enemy : Game::systemManager->GetEntityGroup(SystemManager::enemy)) {
         enemy->GetComponent<ShootComponent>().Stop();

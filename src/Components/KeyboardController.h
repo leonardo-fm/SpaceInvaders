@@ -50,8 +50,8 @@ public:
             hasShoot = false;
     }
 private:
-    TransformComponent* transform;
+    TransformComponent* transform = nullptr;
     bool hasShoot = false;
-    Uint32 shootTime;
-    int shootDelay = 500;
+    Uint32 shootTime = 0;
+    Uint32 shootDelay = 500;
 };

@@ -9,7 +9,7 @@ public:
     void EndFrame();
 
     void Update();
-    void Draw();
+    void Draw() const;
     
 private:
     SDL_Color textColor;

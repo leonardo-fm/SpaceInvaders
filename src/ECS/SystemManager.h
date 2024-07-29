@@ -21,10 +21,10 @@ public:
     std::vector<std::unique_ptr<Entity>>& GetEntityGroup(GameObjectsGroup group);
     
     void Refresh();
-    void Create();
-    void Update();
+    void Create() const;
+    void Update() const;
     void CollisionResolution();
-    void Draw();
+    void Draw() const;
     
 private:
     std::map<GameObjectsGroup, std::vector<std::unique_ptr<Entity>>> entitiesGroups;

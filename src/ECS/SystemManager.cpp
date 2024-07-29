@@ -11,6 +11,7 @@ Entity& SystemManager::CreateEntity(GameObjectsGroup group) {
     numberOfEntities++;
     return *entity;
 }
+
 std::vector<std::unique_ptr<Entity>>& SystemManager::GetEntityGroup(GameObjectsGroup group) {
     return entitiesGroups[group];
 }
@@ -27,16 +28,19 @@ void SystemManager::Refresh() {
         }), entitiesGroup.second.end());
     }
 }
-void SystemManager::Create() {
+
+void SystemManager::Create() const {
     for (auto& entitiesGroup : entitiesGroups) {
         for (auto& entity : entitiesGroup.second) entity->Create();
     }
 }
-void SystemManager::Update() {
+
+void SystemManager::Update() const {
     for (auto& entitiesGroup : entitiesGroups) {
         for (auto& entity : entitiesGroup.second) entity->Update();
     }
 }
+
 void SystemManager::CollisionResolution() {
     // player projectiles
     for (auto& pp : entitiesGroups[playerProjectile]) {
@@ -59,7 +63,8 @@ void SystemManager::CollisionResolution() {
         }
     }
 }
-void SystemManager::Draw() {
+
+void SystemManager::Draw() const {
     for (auto& entitiesGroup : entitiesGroups) {
         for (auto& entity : entitiesGroup.second) entity->Draw();
     }

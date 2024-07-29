@@ -12,6 +12,7 @@ public:
         texture = TextureManager::LoadTexture(texturePath);
         srcRect = {0, 0, w, h};
     }
+    
     ~SpriteComponent() {
         SDL_DestroyTexture(texture);
     }
@@ -23,12 +24,14 @@ public:
         }
         transform = &entity->GetComponent<TransformComponent>();
     }
+    
     void Update() override {
         Vector2D position = transform->GetPosition();
         Vector2D scale = transform->GetScale();
         destRect = {static_cast<int>(position.x), static_cast<int>(position.y),
             srcRect.w * static_cast<int>(scale.x), srcRect.h * static_cast<int>(scale.y)};
     }
+    
     void Draw() override {
         TextureManager::Draw(texture, srcRect, destRect);
     }

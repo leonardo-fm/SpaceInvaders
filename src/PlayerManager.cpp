@@ -18,6 +18,7 @@ void PlayerManager::Spawn(Vector2D position) {
             transform->SetPosition(transform->GetLastPosition());
     });
 }
+
 void PlayerManager::FireProjectile() {
     Vector2D playerPosition = player->GetComponent<TransformComponent>().GetPosition();
     EntityManager::SpawnPlayerProjectile(playerPosition);
@@ -35,6 +36,7 @@ void PlayerManager::PlayerHit() {
         Game::EndGame(); 
     }
 }
+
 void PlayerManager::Update() {
     
 }

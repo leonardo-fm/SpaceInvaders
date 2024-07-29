@@ -15,7 +15,7 @@ class SystemManager;
 class Entity {
 public:
     Entity(SystemManager& manager);
-    bool IsActive();
+    bool IsActive() const;
 
     template<typename T, typename... TArgs> 
     T* AddComponent(TArgs&&... cArgs) {
@@ -52,9 +52,9 @@ public:
         component->Remove();
     }
 
-    void Create();
-    void Update();
-    void Draw();
+    void Create() const;
+    void Update() const;
+    void Draw() const;
     void Destroy();
     
 private:

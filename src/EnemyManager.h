@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "EntityManager.h"
 
 class EnemyManager {
 public:

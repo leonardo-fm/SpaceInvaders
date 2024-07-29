@@ -1,8 +1,7 @@
 ﻿#pragma once
 
-#include "../ECS/Component.h"
-#include "ECS/Entity.h"
-#include "Components/TransformComponent.h"
+#include "TransformComponent.h"
+#include "../ECS/Entity.h"
 
 class ColliderComponent : public Component {
 public:
@@ -24,7 +23,7 @@ public:
         collider.y = static_cast<int>(position.y);
     }
     
-    SDL_Rect GetCollider() {
+    SDL_Rect GetCollider() const {
         return collider;    
     }
     

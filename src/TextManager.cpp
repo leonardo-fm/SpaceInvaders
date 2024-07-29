@@ -8,6 +8,7 @@ SDL_Texture* TextManager::LoadText(std::string text, const char* fontPath, int f
 
     return texture;
 }
+
 void TextManager::Draw(SDL_Texture* textTexture, SDL_Rect destRect) {
     SDL_QueryTexture(textTexture, nullptr, nullptr, &destRect.w, &destRect.h);
     SDL_RenderCopy(Game::renderer, textTexture, nullptr, &destRect);

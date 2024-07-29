@@ -8,6 +8,7 @@ public:
         lastShoot = SDL_GetTicks();
         msToWait = rand() % 8000;
     }
+    
     void Create() override {
         if (stop) return;
         if (lastShoot + msToWait < SDL_GetTicks()) {
@@ -18,11 +19,12 @@ public:
             msToWait = rand() % 8000;
         }
     }
+    
     void Stop() {
         stop = true;
     }
 private:
-    Uint32 lastShoot;
-    int msToWait;
+    Uint32 lastShoot = 0;
+    int msToWait = 0;
     bool stop = false;
 };

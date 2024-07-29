@@ -1,6 +1,6 @@
 ﻿#include "Collision.h"
 
-bool Collision::AABB(SDL_Rect rectA, SDL_Rect rectB) {
+bool Collision::AABB(const SDL_Rect rectA, const SDL_Rect rectB) {
     if (rectA.x + rectA.w >= rectB.x &&
         rectB.x + rectB.w >= rectA.x &&
         rectA.y + rectA.h >= rectB.y &&
@@ -9,6 +9,6 @@ bool Collision::AABB(SDL_Rect rectA, SDL_Rect rectB) {
     }
     return false;
 }
-bool Collision::AABB(ColliderComponent colliderA, ColliderComponent colliderB) {
-    return AABB(colliderA.GetCollider(), colliderB.GetCollider());
+bool Collision::AABB(const ColliderComponent* colliderA, const ColliderComponent* colliderB) {
+    return AABB(colliderA->GetCollider(), colliderB->GetCollider());
 }

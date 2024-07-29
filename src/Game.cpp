@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 
 #include "Game.h"
-#include "TextManager.h"
 #include "ECS/Entity.h"
 #include "Components/Components.h"
 #include "Debug.h"
@@ -43,7 +42,7 @@ void Game::Init(const char* windowTitle, int width, int height) {
     playerManager = new PlayerManager();
 
     enemyManager->SpawnEnemy(10, 5);
-    playerManager->Spawn(Vector2D(gameWidth / 2, gameHeight - 16));
+    playerManager->Spawn(Vector2D(static_cast<float>(gameWidth / 2), static_cast<float>(gameHeight - 16)));
     
     running = true;
 }
