@@ -6,3 +6,4 @@
 #include "ColliderComponent.h"
 #include "ShootComponent.h"
 #include "ScriptComponent.h"
+#include "DestroyComponent.h"

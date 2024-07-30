@@ -14,7 +14,7 @@ void PlayerManager::Spawn(Vector2D position) {
     player->AddComponent<ScriptComponent>([]() {
         TransformComponent* transform = &player->GetComponent<TransformComponent>(); 
         Vector2D position = transform->GetPosition();
-        if (position.x > Game::gameWidth - 2 || position.x < 2)
+        if (position.x > Game::gameWidth || position.x < 0)
             transform->SetPosition(transform->GetLastPosition());
     });
 }

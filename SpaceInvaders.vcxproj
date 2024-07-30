@@ -22,6 +22,7 @@
     <ClInclude Include="src\Collision.h" />
     <ClInclude Include="src\Components\ColliderComponent.h" />
     <ClInclude Include="src\Components\Components.h" />
+    <ClInclude Include="src\Components\DestroyComponent.h" />
     <ClInclude Include="src\Components\KeyboardController.h" />
     <ClInclude Include="src\Components\ScriptComponent.h" />
     <ClInclude Include="src\Components\ShootComponent.h" />
