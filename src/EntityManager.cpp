@@ -21,7 +21,7 @@ Entity& EntityManager::SpawnPlayerProjectile(Vector2D position) {
 
 Entity& EntityManager::SpawnEnemy(Vector2D position, float movingDirection, int enemyType) {
     Entity& enemy = Game::systemManager->CreateEntity(SystemManager::enemy);
-    enemy.AddComponent<TransformComponent>(Vector2D(position), Vector2D(4, 4), Vector2D(movingDirection, 0), 0.5);
+    enemy.AddComponent<TransformComponent>(Vector2D(position), Vector2D(4, 4), Vector2D(movingDirection, 0), 0.1f);
     std::string enemyFileName;
     enemyFileName.append("assets/enemy_").append(std::to_string(enemyType)).append(".png");
     enemy.AddComponent<SpriteAnimationComponent>(enemyFileName.c_str(), Game::spriteSize, Game::spriteSize, 2, 1.0f);

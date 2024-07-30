@@ -46,6 +46,7 @@ void SystemManager::CollisionResolution() {
     for (auto& pp : entitiesGroups[playerProjectile]) {
         for (auto& e : entitiesGroups[enemy]) {
             if (Collision::AABB(pp->GetComponent<ColliderComponent>().GetCollider(), e->GetComponent<ColliderComponent>().GetCollider())) {
+                if (!pp->IsActive()) return;
                 pp->Destroy();
                 e->Destroy();
             }

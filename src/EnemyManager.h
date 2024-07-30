@@ -8,5 +8,4 @@ public:
 
 private:
     float movingDirection = 1;
-    int totNumberOfEnemy = 0;
 };

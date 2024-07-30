@@ -2,13 +2,18 @@
 #include "ECS/SystemManager.h"
 #include "Components/Components.h"
 
+int totNumberOfEnemy;
+long lastTotalCheck;
+
 void EnemyManager::SpawnEnemy(int enemyColumns, int enemyRows) {
     int offsetX = 100;
     int offsetY = 50;
     int columnSpace = (Game::gameWidth - (2 * offsetX)) / enemyColumns;
     int rowSpace = Game::spriteActualSize;
+    
     totNumberOfEnemy = enemyColumns * enemyRows;
-
+    lastTotalCheck = totNumberOfEnemy;
+    
     int enemyType = 3;
     int drawRaws = enemyRows / enemyType;
     for (int row = 0; row < enemyRows; row++) {
@@ -51,6 +56,14 @@ void EnemyManager::Update() {
         }   
     }
 
+    if (Game::systemManager->GetEntityGroup(SystemManager::enemy).size() < lastTotalCheck) {
+        for (auto& enemy : Game::systemManager->GetEntityGroup(SystemManager::enemy)) {
+            TransformComponent* transform = &enemy->GetComponent<TransformComponent>();
+            transform->SetSpeed(transform->GetSpeed() + 0.04f);
+        }
+        lastTotalCheck = Game::systemManager->GetEntityGroup(SystemManager::enemy).size();
+    }
+    
     if (goNextRow == false)
         return;
     
