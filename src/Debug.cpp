@@ -18,6 +18,7 @@ void Debug::EndFrame() {
     renderTimeText = std::to_string(SDL_GetTicks() - currentTime);
     if (SDL_GetTicks() - pollingTime > 1000) {
         fpsText = std::to_string(frames);
+        frameLastSecond = frames;
         frames = 0;
         pollingTime = 0;
     }

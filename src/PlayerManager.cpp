@@ -7,10 +7,10 @@ Entity* PlayerManager::player = &EntityManager::CreatePlayer();
 int PlayerManager::life = 1;
 
 void PlayerManager::Spawn(Vector2D position) {
-    player->AddComponent<TransformComponent>(Vector2D(position), Vector2D(2, 2), Vector2D(0, 0), 3);
-    player->AddComponent<SpriteComponent>("assets/player.png", 8, 8);
+    player->AddComponent<TransformComponent>(Vector2D(position), Vector2D(1, 1), Vector2D(0, 0), 3);
+    player->AddComponent<SpriteComponent>("assets/player.png", Game::spriteSize, Game::spriteSize);
     player->AddComponent<KeyboardController>();
-    player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, 8, 8});
+    player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, Game::spriteSize, Game::spriteSize});
     player->AddComponent<ScriptComponent>([]() {
         TransformComponent* transform = &player->GetComponent<TransformComponent>(); 
         Vector2D position = transform->GetPosition();

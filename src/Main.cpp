@@ -3,12 +3,13 @@
 Game* game = nullptr;
 
 int main(int argc, char* argv[]) {
-    const int FPS = 60;
+    const int baseFPS = 60;
+    const int FPS = 120;
     const int FRAME_DELAY = 1000 / FPS;
     Uint32 frameStart = 0;
     Uint32 frameTime = 0;
     
-    game = new Game();
+    game = new Game(baseFPS, FPS);
     game->Init("Space invaders", Game::gameWidth, Game::gameHeight);
 
     while (game->IsRunning()) {

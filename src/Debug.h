@@ -5,6 +5,7 @@
 class Debug {
 public:
     Debug();
+    int frameLastSecond;
     void StartFrame();
     void EndFrame();
 

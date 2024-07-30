@@ -52,8 +52,8 @@ public:
     
     void Update() override {
         lastPosition = position;
-        position.x += velocity.x * speed;
-        position.y += velocity.y * speed;
+        position.x += velocity.x * speed * Game::deltaTime;
+        position.y += velocity.y * speed * Game::deltaTime;
     }
     
 private:
