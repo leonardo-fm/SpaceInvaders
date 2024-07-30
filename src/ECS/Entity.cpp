@@ -21,5 +21,6 @@ void Entity::Draw() const {
 }
 
 void Entity::Destroy() {
+    for (auto& component : components) component->Destroy();
     active = false;
 }

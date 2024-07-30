@@ -10,4 +10,6 @@ public:
     
     static Entity& SpawnEnemy(Vector2D position, float movingDirection);
     static Entity& SpawnEnemyProjectile(Vector2D position);
+
+    static Entity& SpawnExplosion(Vector2D position, Vector2D scale);
 };

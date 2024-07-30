@@ -22,6 +22,7 @@ Entity& EntityManager::SpawnEnemy(Vector2D position, float movingDirection) {
     enemy.AddComponent<SpriteAnimationComponent>("assets/enemy.png", Game::spriteSize, Game::spriteSize, 2, 1.0f);
     enemy.AddComponent<ColliderComponent>(SDL_Rect {0, 0, Game::spriteSize, Game::spriteSize});
     enemy.AddComponent<ShootComponent>();
+    enemy.AddComponent<ExplosionComponent>();
 
     return enemy;
 }
@@ -32,6 +33,16 @@ Entity& EntityManager::SpawnEnemyProjectile(Vector2D position) {
     projectile.AddComponent<SpriteAnimationComponent>("assets/enemy_projectile.png", 3, 3, 2, 0.2f);
     projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 3, 3});
     projectile.AddComponent<DestroyComponent>();
+    projectile.AddComponent<ExplosionComponent>();
 
     return projectile;
+}
+
+Entity& EntityManager::SpawnExplosion(Vector2D position, Vector2D scale) {
+    Entity& explosion = Game::systemManager->CreateEntity(SystemManager::background);
+    explosion.AddComponent<TransformComponent>(position, scale, Vector2D(0, 0), 0);
+    explosion.AddComponent<SpriteComponent>("assets/explosion.png", Game::spriteSize, Game::spriteSize);
+    explosion.AddComponent<TimerComponent>(0.05f, [](Entity* entity){ entity->Destroy(); });
+       
+    return explosion;
 }

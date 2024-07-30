@@ -8,3 +8,5 @@
 #include "ShootComponent.h"
 #include "ScriptComponent.h"
 #include "DestroyComponent.h"
+#include "ExplosionComponent.h"
+#include "TimerComponent.h"

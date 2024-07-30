@@ -4,12 +4,12 @@
 
 class ScriptComponent : public Component {
 public:
-    ScriptComponent(void (*func)()) : sFunc(func) { }
+    ScriptComponent(void (*func)(Entity*)) : sFunc(func) { }
 
     void Update() override {
-        sFunc();
+        sFunc(entity);
     }
     
 private:
-    void (*sFunc)();
+    void (*sFunc)(Entity*);
 };

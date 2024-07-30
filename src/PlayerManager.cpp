@@ -5,10 +5,17 @@
 
 #include <vector>
 
-Entity* PlayerManager::player = &EntityManager::CreatePlayer();
+Entity* PlayerManager::player;
 int PlayerManager::live = 3;
 std::vector<Entity*> lives;
 Vector2D spawnPoint;
+
+void (*CheckBoundaries)(Entity*) = [](Entity* entity) {
+    TransformComponent* transform = &entity->GetComponent<TransformComponent>(); 
+    Vector2D position = transform->GetPosition();
+    if (position.x + Game::spriteActualSize > Game::gameWidth || position.x < 0)
+        transform->SetPosition(transform->GetLastPosition());
+};
 
 PlayerManager::PlayerManager() {
     for (int i = 0; i < live; i++) {
@@ -21,17 +28,12 @@ PlayerManager::PlayerManager() {
 
 void PlayerManager::Spawn(Vector2D position) {
     spawnPoint = position;
-    
-    player->AddComponent<TransformComponent>(Vector2D(position), Vector2D(4, 4), Vector2D(0, 0), 3);
+    player = &EntityManager::CreatePlayer();
+    player->AddComponent<TransformComponent>(spawnPoint, Vector2D(4, 4), Vector2D(0, 0), 3);
     player->AddComponent<SpriteComponent>("assets/player.png", Game::spriteSize, Game::spriteSize);
     player->AddComponent<KeyboardController>();
     player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, Game::spriteSize, Game::spriteSize});
-    player->AddComponent<ScriptComponent>([]() {
-        TransformComponent* transform = &player->GetComponent<TransformComponent>(); 
-        Vector2D position = transform->GetPosition();
-        if (position.x > Game::gameWidth || position.x < 0)
-            transform->SetPosition(transform->GetLastPosition());
-    });
+    player->AddComponent<ScriptComponent>(CheckBoundaries);
 }
 
 void PlayerManager::FireProjectile() {
@@ -42,17 +44,11 @@ void PlayerManager::FireProjectile() {
 void PlayerManager::PlayerHit() {
     if (--live > 0)
     {
-        player = &EntityManager::CreatePlayer();
-        player->AddComponent<TransformComponent>(spawnPoint, Vector2D(4, 4), Vector2D(0, 0), 3);
-        player->AddComponent<SpriteComponent>("assets/player.png", Game::spriteSize, Game::spriteSize);
-        player->AddComponent<KeyboardController>();
-        player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, Game::spriteSize, Game::spriteSize});
-        player->AddComponent<ScriptComponent>([]() {
-            TransformComponent* transform = &player->GetComponent<TransformComponent>(); 
-            Vector2D position = transform->GetPosition();
-            if (position.x > Game::gameWidth || position.x < 0)
-                transform->SetPosition(transform->GetLastPosition());
-        });
+        Spawn(spawnPoint);
+        
+        for (auto& projectile : Game::systemManager->GetEntityGroup(SystemManager::enemyProjectile)) {
+            projectile->Destroy();
+        }
     } else {
         Game::EndGame(); 
     }
