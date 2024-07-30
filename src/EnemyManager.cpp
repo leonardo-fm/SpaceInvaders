@@ -8,11 +8,18 @@ void EnemyManager::SpawnEnemy(int enemyColumns, int enemyRows) {
     int columnSpace = (Game::gameWidth - (2 * offsetX)) / enemyColumns;
     int rowSpace = Game::spriteActualSize;
     totNumberOfEnemy = enemyColumns * enemyRows;
-    
+
+    int enemyType = 3;
+    int drawRaws = enemyRows / enemyType;
     for (int row = 0; row < enemyRows; row++) {
+        if (drawRaws-- == 0) {
+            enemyType--;
+            drawRaws = ((enemyRows - row) / enemyType) - 1;
+        }
+        
         for (int col = 0; col < enemyColumns; col++) {
-            EntityManager::SpawnEnemy(Vector2D(col * columnSpace + offsetX, row * rowSpace + offsetY), movingDirection);
-        }    
+            EntityManager::SpawnEnemy(Vector2D(col * columnSpace + offsetX, row * rowSpace + offsetY), movingDirection, enemyType);
+        }
     }
 }
 
@@ -53,7 +60,7 @@ void EnemyManager::Update() {
     for (auto& enemy : enemies) {
         if (enemy->IsActive()) {
             TransformComponent* enemyPosition = &enemy->GetComponent<TransformComponent>();
-            enemyPosition->SetY(enemyPosition->GetPosition().y + static_cast<float>(Game::spriteSize));
+            enemyPosition->SetY(enemyPosition->GetPosition().y + static_cast<float>(Game::spriteActualSize));
             enemyPosition->SetVelocity(Vector2D(movingDirection, 0));
         }
     }

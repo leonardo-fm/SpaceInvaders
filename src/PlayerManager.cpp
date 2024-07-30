@@ -34,6 +34,7 @@ void PlayerManager::Spawn(Vector2D position) {
     player->AddComponent<KeyboardController>();
     player->AddComponent<ColliderComponent>(SDL_Rect {0, 0, Game::spriteSize, Game::spriteSize});
     player->AddComponent<ScriptComponent>(CheckBoundaries);
+    player->AddComponent<ExplosionComponent>();
 }
 
 void PlayerManager::FireProjectile() {
