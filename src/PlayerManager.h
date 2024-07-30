@@ -13,5 +13,5 @@ public:
     static void PlayerHit();
 
 private:
-    static int life;
+    static int live;
 };

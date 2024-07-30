@@ -6,16 +6,16 @@
 #include <vector>
 
 Entity* PlayerManager::player = &EntityManager::CreatePlayer();
-int PlayerManager::life = 3;
-std::vector<Entity*> lifes;
+int PlayerManager::live = 3;
+std::vector<Entity*> lives;
 Vector2D spawnPoint;
 
 PlayerManager::PlayerManager() {
-    for (int i = 0; i < life; i++) {
+    for (int i = 0; i < live; i++) {
         Entity* lifeImage = &Game::systemManager->CreateEntity(SystemManager::background);
         lifeImage->AddComponent<TransformComponent>(Vector2D(Game::gameWidth - (i + 1) * Game::spriteSize - 8, 8), Vector2D(1, 1), Vector2D(0, 0), 0);
         lifeImage->AddComponent<SpriteComponent>("assets/player.png", Game::spriteSize, Game::spriteSize);
-        lifes.push_back(lifeImage);
+        lives.push_back(lifeImage);
     }
 }
 
@@ -40,7 +40,7 @@ void PlayerManager::FireProjectile() {
 }
 
 void PlayerManager::PlayerHit() {
-    if (--life > 0)
+    if (--live > 0)
     {
         player = &EntityManager::CreatePlayer();
         player->AddComponent<TransformComponent>(spawnPoint, Vector2D(4, 4), Vector2D(0, 0), 3);
@@ -57,5 +57,5 @@ void PlayerManager::PlayerHit() {
         Game::EndGame(); 
     }
     
-    lifes[life]->Destroy();
+    lives[live]->Destroy();
 }
