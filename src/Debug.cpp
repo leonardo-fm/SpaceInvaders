@@ -1,11 +1,15 @@
 ﻿#include "Debug.h"
 #include "TextManager.h"
 
+const char* font = "assets/cour.ttf";
+const int fontSize = 14;
+
 Debug::Debug() {
     textColor = {255, 255, 255, 255};
     fpsText = "-";
     fpsPosition = {0, 0, 0, 0};
     entityNumberPosition = {0, 15, 0, 0};
+    deltaTimePosition = {0, 30, 0, 0};
 }
 
 void Debug::StartFrame() {
@@ -25,11 +29,13 @@ void Debug::EndFrame() {
 }
 
 void Debug::Update() {
-    fpsTexture = TextManager::LoadText(fpsText + "/" + renderTimeText + "ms", "assets/cour.ttf", 14, textColor);
-    entityNumberTexture = TextManager::LoadText("entities: " + std::to_string(SystemManager::numberOfEntities), "assets/cour.ttf", 14, textColor);
+    fpsTexture = TextManager::LoadText(fpsText + "/" + renderTimeText + "ms", font, fontSize, textColor);
+    entityNumberTexture = TextManager::LoadText("entities: " + std::to_string(SystemManager::numberOfEntities), font, fontSize, textColor);
+    deltaTimeTexture = TextManager::LoadText("delta time: " + std::to_string(Game::deltaTime), font, fontSize, textColor);
 }
 
 void Debug::Draw() const {
     TextManager::Draw(fpsTexture, fpsPosition);
     TextManager::Draw(entityNumberTexture, entityNumberPosition);
+    TextManager::Draw(deltaTimeTexture, deltaTimePosition);
 }

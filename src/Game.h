@@ -11,6 +11,7 @@ public:
     static int gameWidth;
     static int gameHeight;
     static int spriteSize;
+    static int spriteActualSize;
     static SDL_Renderer* renderer;
     static SystemManager* systemManager;
     static SDL_Event event;

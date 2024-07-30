@@ -24,6 +24,10 @@ private:
     SDL_Texture* entityNumberTexture;
     SDL_Rect entityNumberPosition;
 
+    std::string deltaTimeText;
+    SDL_Texture* deltaTimeTexture;
+    SDL_Rect deltaTimePosition;
+
     Uint32 pollingTime = 0;
     Uint32 currentTime = 0;
     int frames;

@@ -6,7 +6,7 @@ class ShootComponent : public Component {
 public:
     void Init() override {
         lastShoot = SDL_GetTicks();
-        msToWait = rand() % 8000;
+        msToWait = rand() % 50000;
     }
     
     void Create() override {

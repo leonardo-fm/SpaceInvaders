@@ -62,6 +62,16 @@ void SystemManager::CollisionResolution() {
             }
         }
     }
+    
+    // projectiles projectiles
+    for (auto& ep : entitiesGroups[enemyProjectile]) {
+        for (auto& p : entitiesGroups[playerProjectile]) {
+            if (Collision::AABB(ep->GetComponent<ColliderComponent>().GetCollider(), p->GetComponent<ColliderComponent>().GetCollider())) {
+                ep->Destroy();
+                p->Destroy();
+            }
+        }
+    }
 }
 
 void SystemManager::Draw() const {

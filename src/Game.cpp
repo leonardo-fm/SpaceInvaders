@@ -10,6 +10,7 @@
 int Game::gameWidth = 800;
 int Game::gameHeight = 640;
 int Game::spriteSize = 11;
+int Game::spriteActualSize = 11 * 4;
 bool Game::running = false;
 float Game::deltaTime = 1;
 Debug* debug;
@@ -46,8 +47,8 @@ void Game::Init(const char* windowTitle, int width, int height) {
     enemyManager = new EnemyManager();
     playerManager = new PlayerManager();
 
-    enemyManager->SpawnEnemy(10, 5);
-    playerManager->Spawn(Vector2D(static_cast<float>(gameWidth / 2), static_cast<float>(gameHeight - spriteSize)));
+    enemyManager->SpawnEnemy(11, 5);
+    playerManager->Spawn(Vector2D(static_cast<float>((gameWidth / 2) - (spriteActualSize / 2)), static_cast<float>(gameHeight - spriteActualSize)));
     
     running = true;
 }
@@ -101,7 +102,6 @@ void Game::Render() {
 void Game::EndFrame() {
     debug->EndFrame();
     if (debug->frameLastSecond != 0) {
-        std::cout << "delta time: " << baseFPS << " / " << debug->frameLastSecond << " = " << static_cast<float>(baseFPS) / debug->frameLastSecond << '\n';
         deltaTime = static_cast<float>(baseFPS) / static_cast<float>(debug->frameLastSecond);
     }
 }

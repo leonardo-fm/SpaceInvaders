@@ -3,12 +3,15 @@
 #include "Components/Components.h"
 
 void EnemyManager::SpawnEnemy(int enemyColumns, int enemyRows) {
-    int columnSpace = Game::gameWidth / enemyColumns;
+    int offsetX = 100;
+    int offsetY = 50;
+    int columnSpace = (Game::gameWidth - (2 * offsetX)) / enemyColumns;
+    int rowSpace = Game::spriteActualSize;
     totNumberOfEnemy = enemyColumns * enemyRows;
     
     for (int row = 0; row < enemyRows; row++) {
         for (int col = 0; col < enemyColumns; col++) {
-            EntityManager::SpawnEnemy(Vector2D(col * columnSpace, row * Game::spriteSize), movingDirection);
+            EntityManager::SpawnEnemy(Vector2D(col * columnSpace + offsetX, row * rowSpace + offsetY), movingDirection);
         }    
     }
 }
@@ -24,7 +27,7 @@ void EnemyManager::Update() {
     bool goNextRow = false;
 
     if (movingDirection == 1) {
-        float currentEdge = static_cast<float>(Game::gameWidth - Game::spriteSize);
+        float currentEdge = static_cast<float>(Game::gameWidth - Game::spriteActualSize);
         for (auto& enemy : Game::systemManager->GetEntityGroup(SystemManager::enemy)) {
             if (enemy->GetComponent<TransformComponent>().GetPosition().x > currentEdge) {
                 goNextRow = true;
