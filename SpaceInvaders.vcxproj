@@ -27,6 +27,7 @@
     <ClInclude Include="src\Components\KeyboardController.h" />
     <ClInclude Include="src\Components\ScriptComponent.h" />
     <ClInclude Include="src\Components\ShootComponent.h" />
+    <ClInclude Include="src\Components\SoundComponent.h" />
     <ClInclude Include="src\Components\SpriteAnimationComponent.h" />
     <ClInclude Include="src\Components\TimerComponent.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />

@@ -4,9 +4,12 @@
 
 class ShootComponent : public Component {
 public:
+    const int MaxTimeToWait = 20 * 1000;
+    const int MinTimeToWait = 10 * 1000;
+    
     void Init() override {
         lastShoot = SDL_GetTicks();
-        msToWait = rand() % 50000;
+        msToWait = rand() % MaxTimeToWait;
     }
     
     void Create() override {
@@ -16,7 +19,8 @@ public:
             EntityManager::SpawnEnemyProjectile(position);
             
             lastShoot = SDL_GetTicks();
-            msToWait = rand() % 8000;
+            msToWait = rand() % MaxTimeToWait;
+            msToWait = msToWait < MinTimeToWait ? MinTimeToWait : msToWait;
         }
     }
     

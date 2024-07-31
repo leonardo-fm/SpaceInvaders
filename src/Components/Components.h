@@ -10,3 +10,4 @@
 #include "DestroyComponent.h"
 #include "ExplosionComponent.h"
 #include "TimerComponent.h"
+#include "SoundComponent.h"

@@ -15,6 +15,7 @@ Entity& EntityManager::SpawnPlayerProjectile(Vector2D position) {
     projectile.AddComponent<SpriteComponent>("assets/player_projectile.png", 1, 3);
     projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 3, 3});
     projectile.AddComponent<DestroyComponent>();
+    projectile.AddComponent<SoundComponent>(784, 100, true);
 
     return projectile;
 }
@@ -39,6 +40,7 @@ Entity& EntityManager::SpawnEnemyProjectile(Vector2D position) {
     projectile.AddComponent<ColliderComponent>(SDL_Rect {0, 0, 3, 3});
     projectile.AddComponent<DestroyComponent>();
     projectile.AddComponent<ExplosionComponent>();
+    projectile.AddComponent<SoundComponent>(98, 100, true);
 
     return projectile;
 }
